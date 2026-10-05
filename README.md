@@ -2,7 +2,7 @@
 
 A tiny personal streaming launcher for a parked Tesla (built for a 2024 Model 3, also works on desktop and phone). Plain HTML, CSS and JavaScript: no build step, backend, analytics, ads, API keys, remote fonts or dependencies.
 
-Default tiles: **YouTube TV**, **YouTube**, **Netflix**. You can add, edit, remove and reorder services in **Settings**.
+Default tiles: **YouTube TV**, **YouTube**, **Netflix**, **ESPN**, **NFL**, **HBO Max**, **Paramount+**. You can add, edit, remove and reorder services in **Settings**.
 
 Every tile is an ordinary same-tab link to the official site. No iframes, no popups.
 

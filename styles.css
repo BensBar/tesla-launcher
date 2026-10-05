@@ -158,9 +158,17 @@ main { flex: 1; display: flex; align-items: center; outline: none; }
 .tile:hover::before, .tile:focus-visible::before { transform: translateX(60%); }
 .tile:active { transform: scale(0.985); }
 
-.tile[data-brand="youtube-tv"] { --hue: 212; }
+.tile[data-brand="youtube-tv"] { --hue: 195; }
 .tile[data-brand="youtube"] { --hue: 2; }
 .tile[data-brand="netflix"] { --hue: 340; }
+.tile[data-brand="espn"] { --hue: 25; }
+.tile[data-brand="nfl"] { --hue: 245; }
+.tile[data-brand="hbo-max"] { --hue: 280; }
+.tile[data-brand="paramount-plus"] { --hue: 218; }
+
+/* Many tiles: shorter cards so two rows fit on a landscape screen */
+.dense .tile { min-height: clamp(170px, 26vh, 260px); padding-top: calc(var(--pad) + 72px); }
+.dense .name { font-size: clamp(1.5rem, 2.6vw, 2.1rem); }
 
 .badge {
   position: absolute; top: var(--pad); left: var(--pad);

@@ -5,11 +5,15 @@
   var DEFAULT_SERVICES = [
     { id: 'youtube-tv', label: 'YouTube TV', url: 'https://tv.youtube.com/' },
     { id: 'youtube', label: 'YouTube', url: 'https://www.youtube.com/' },
-    { id: 'netflix', label: 'Netflix', url: 'https://www.netflix.com/' }
+    { id: 'netflix', label: 'Netflix', url: 'https://www.netflix.com/' },
+    { id: 'espn', label: 'ESPN', url: 'https://www.espn.com/' },
+    { id: 'nfl', label: 'NFL', url: 'https://www.nfl.com/' },
+    { id: 'hbo-max', label: 'HBO Max', url: 'https://www.hbomax.com/' },
+    { id: 'paramount-plus', label: 'Paramount+', url: 'https://www.paramountplus.com/' }
   ];
 
   // Intrinsic aspect ratios of logos/*.svg, so layout doesn't depend on image load timing.
-  var LOGO_SIZES = { 'youtube-tv': [240, 44], 'youtube': [240, 170], 'netflix': [136, 240] };
+  var LOGO_SIZES = { 'youtube-tv': [240, 44], 'youtube': [240, 170], 'netflix': [136, 240], 'paramount-plus': [240, 216] };
 
   var STORAGE_KEY = 'parked-launcher:v1';
   var MAX_SERVICES = 24;
@@ -152,6 +156,7 @@
 
   function initialsOf(label) {
     var words = label.split(' ').filter(Boolean);
+    if (words.length === 1 && Array.from(words[0]).length <= 4) return words[0].toUpperCase();
     var letters = words.length > 1 ? [words[0], words[1]] : [words[0] || '?'];
     return letters.map(function (w) { return Array.from(w)[0]; }).join('').toUpperCase();
   }
@@ -163,6 +168,10 @@
     if (h === 'tv.youtube.com') return 'youtube-tv';
     if (h === 'youtube.com') return 'youtube';
     if (h === 'netflix.com') return 'netflix';
+    if (h === 'paramountplus.com') return 'paramount-plus';
+    if (h === 'hbomax.com' || h === 'max.com') return 'hbo-max';
+    if (h === 'espn.com') return 'espn';
+    if (h === 'nfl.com') return 'nfl';
     return '';
   }
 
@@ -182,6 +191,7 @@
       ul.appendChild(li);
       return;
     }
+    ul.classList.toggle('dense', state.services.length > 4);
     state.services.forEach(function (s) {
       var li = document.createElement('li');
       var a = document.createElement('a');
@@ -195,7 +205,7 @@
       var badge = document.createElement('span');
       badge.className = 'badge';
       badge.setAttribute('aria-hidden', 'true');
-      if (brand) {
+      if (LOGO_SIZES[brand]) {
         var img = document.createElement('img');
         img.src = 'logos/' + brand + '.svg';
         img.alt = '';
