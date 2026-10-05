@@ -13,6 +13,10 @@ Every tile is an ordinary same-tab link to the official site. No iframes, no pop
 - Separate buttons do **not** create separate login sessions. YouTube and YouTube TV are different sites but share the browser's Google sign-in state, so which account each one uses is decided on those sites. See [Separate Google accounts](#separate-google-accounts).
 - It cannot guarantee Tesla Theater fullscreen. See [Fullscreen](#fullscreen).
 
+## Logos
+
+The logo files come from the [Simple Icons](https://github.com/simple-icons/simple-icons) project (CC0 icon files, v16.34.0), cropped and recolored. The marks themselves are trademarks of their owners (YouTube/Google, Netflix, Paramount). ESPN and NFL aren't in that project, and its HBO Max icon is the older "Max" mark, so those use initials. They're used here only as link icons in a private personal launcher; this project isn't affiliated with or endorsed by any of these companies. Remove `logos/` and the logo code in `app.js` if you ever share the site widely.
+
 ## Files
 
 | File | Purpose |
@@ -21,6 +25,7 @@ Every tile is an ordinary same-tab link to the official site. No iframes, no pop
 | `styles.css` | Dark, touch-friendly layout. |
 | `app.js` | Rendering, validation, settings, optional fullscreen. |
 | `favicon.svg` | Icon. |
+| `logos/` | Local SVG logos for YouTube TV, YouTube, Netflix and Paramount+. ESPN, NFL, HBO Max and any services you add show a colored initials badge. |
 | `.nojekyll` | Tells GitHub Pages to serve files as-is. |
 
 All paths are relative, so the site works at a project URL such as `https://<user>.github.io/<repo>/`.
