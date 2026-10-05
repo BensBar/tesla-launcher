@@ -153,6 +153,16 @@
     return letters.map(function (w) { return Array.from(w)[0]; }).join('').toUpperCase();
   }
 
+  // Known services get fixed accent colors; anything else gets a hue derived from its name.
+  function brandOf(url) {
+    var h;
+    try { h = new URL(url).hostname.replace(/^www\./, ''); } catch (e) { return ''; }
+    if (h === 'tv.youtube.com') return 'youtube-tv';
+    if (h === 'youtube.com') return 'youtube';
+    if (h === 'netflix.com') return 'netflix';
+    return '';
+  }
+
   function hostOf(url) {
     try { return new URL(url).host; } catch (e) { return url; }
   }
@@ -175,7 +185,9 @@
       a.className = 'tile';
       a.href = launchHref(s);
       a.setAttribute('aria-label', 'Open ' + s.label);
-      a.style.setProperty('--hue', String(hueFor(s.label.toLowerCase())));
+      var brand = brandOf(s.url);
+      if (brand) a.setAttribute('data-brand', brand);
+      else a.style.setProperty('--hue', String(hueFor(s.label.toLowerCase())));
 
       var badge = document.createElement('span');
       badge.className = 'badge';

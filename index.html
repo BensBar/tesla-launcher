@@ -15,11 +15,15 @@
 <body>
   <a class="skip" href="#launcher">Skip to services</a>
 
+  <div class="backdrop" aria-hidden="true"></div>
   <div class="app">
     <header class="top">
       <div class="brand">
-        <h1>Parked Launcher</h1>
-        <p class="sub">Pick a service. It opens in this tab.</p>
+        <img class="logo" src="favicon.svg" alt="" width="64" height="64">
+        <div>
+          <h1>Parked Launcher</h1>
+          <p class="sub">Pick a service. It opens in this tab.</p>
+        </div>
       </div>
       <nav class="actions" aria-label="Launcher tools">
         <button type="button" id="fs-btn" class="btn" hidden>Fullscreen</button>
@@ -36,9 +40,9 @@
         app.js replaces this list on load. Keep in sync with DEFAULT_SERVICES in app.js.
       -->
       <ul id="tiles" class="tiles" aria-label="Streaming services">
-        <li><a class="tile" href="https://tv.youtube.com/" aria-label="Open YouTube TV"><span class="badge" aria-hidden="true">YT</span><span class="name">YouTube TV</span><span class="host">tv.youtube.com</span></a></li>
-        <li><a class="tile" href="https://www.youtube.com/" aria-label="Open YouTube"><span class="badge" aria-hidden="true">Y</span><span class="name">YouTube</span><span class="host">www.youtube.com</span></a></li>
-        <li><a class="tile" href="https://www.netflix.com/" aria-label="Open Netflix"><span class="badge" aria-hidden="true">N</span><span class="name">Netflix</span><span class="host">www.netflix.com</span></a></li>
+        <li><a class="tile" data-brand="youtube-tv" href="https://tv.youtube.com/" aria-label="Open YouTube TV"><span class="badge" aria-hidden="true">YT</span><span class="name">YouTube TV</span><span class="host">tv.youtube.com</span></a></li>
+        <li><a class="tile" data-brand="youtube" href="https://www.youtube.com/" aria-label="Open YouTube"><span class="badge" aria-hidden="true">Y</span><span class="name">YouTube</span><span class="host">www.youtube.com</span></a></li>
+        <li><a class="tile" data-brand="netflix" href="https://www.netflix.com/" aria-label="Open Netflix"><span class="badge" aria-hidden="true">N</span><span class="name">Netflix</span><span class="host">www.netflix.com</span></a></li>
       </ul>
     </main>
 
