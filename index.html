@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0b0d12">
+  <meta name="referrer" content="no-referrer">
+  <meta name="robots" content="noindex, nofollow">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
+  <title>Parked Launcher</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip" href="#launcher">Skip to services</a>
+
+  <div class="app">
+    <header class="top">
+      <div class="brand">
+        <h1>Parked Launcher</h1>
+        <p class="sub">Pick a service. It opens in this tab.</p>
+      </div>
+      <nav class="actions" aria-label="Launcher tools">
+        <button type="button" id="fs-btn" class="btn" hidden>Fullscreen</button>
+        <button type="button" id="help-btn" class="btn">Help</button>
+        <button type="button" id="settings-btn" class="btn">Settings</button>
+      </nav>
+    </header>
+
+    <p id="status" class="status" role="status" aria-live="polite" hidden></p>
+
+    <main id="launcher" tabindex="-1">
+      <!--
+        Static fallback so the default links work even if JavaScript fails.
+        app.js replaces this list on load. Keep in sync with DEFAULT_SERVICES in app.js.
+      -->
+      <ul id="tiles" class="tiles" aria-label="Streaming services">
+        <li><a class="tile" href="https://tv.youtube.com/" aria-label="Open YouTube TV"><span class="badge" aria-hidden="true">YT</span><span class="name">YouTube TV</span><span class="host">tv.youtube.com</span></a></li>
+        <li><a class="tile" href="https://www.youtube.com/" aria-label="Open YouTube"><span class="badge" aria-hidden="true">Y</span><span class="name">YouTube</span><span class="host">www.youtube.com</span></a></li>
+        <li><a class="tile" href="https://www.netflix.com/" aria-label="Open Netflix"><span class="badge" aria-hidden="true">N</span><span class="name">Netflix</span><span class="host">www.netflix.com</span></a></li>
+      </ul>
+    </main>
+
+    <footer class="foot">
+      <p id="mode-note" class="note">Launch method: direct links.</p>
+      <p class="note">Video playback is only available while parked. This page does not change that, and it does not manage your logins.</p>
+    </footer>
+  </div>
+
+  <dialog id="help" aria-labelledby="help-title">
+    <div class="dlg-head">
+      <h2 id="help-title">Help</h2>
+      <button type="button" class="btn primary" data-close>Done</button>
+    </div>
+
+    <section>
+      <h3>Signing in and accounts</h3>
+      <p>Each button just opens the official website in this tab. Sign in on that website and pick the right account there. YouTube and YouTube TV use different Google accounts for you, so you may need to switch accounts inside each service.</p>
+      <p>This launcher never sees or stores passwords, cookies, tokens or email addresses, and it cannot control another site's login. Separate buttons do <strong>not</strong> keep separate sessions. Whether each service remembers its account in the car must be tested in the car.</p>
+    </section>
+
+    <section>
+      <h3>Fullscreen</h3>
+      <p><strong>Browser fullscreen</strong> (the Fullscreen button, when shown) only affects this page. It usually ends when you open a service.</p>
+      <p><strong>Tesla Theater fullscreen</strong> is a different, Tesla-controlled mode. No official way to launch it from a web page has been found, so it is unverified. The optional experimental method in Settings is community-reported only.</p>
+    </section>
+
+    <section>
+      <h3>Good to know</h3>
+      <p>Your list is saved only in this browser. The Tesla browser keeps its own list, separate from your phone or computer.</p>
+    </section>
+  </dialog>
+
+  <dialog id="settings" aria-labelledby="settings-title">
+    <div class="dlg-head">
+      <h2 id="settings-title">Settings</h2>
+      <button type="button" class="btn primary" data-close>Done</button>
+    </div>
+
+    <p id="storage-warning" class="notice" hidden>This browser is blocking local storage, so changes will be lost when you leave this page. The default links still work.</p>
+    <div id="dlg-status" class="status" role="status" aria-live="polite" hidden></div>
+
+    <section aria-labelledby="svc-heading">
+      <h3 id="svc-heading">Services</h3>
+      <p id="svc-empty" class="muted" hidden>No services. Add one below, or reset to defaults.</p>
+      <ol id="svc-list" class="svc-list"></ol>
+    </section>
+
+    <section aria-labelledby="form-title">
+      <h3 id="form-title">Add a service</h3>
+      <form id="svc-form" novalidate>
+        <div class="field">
+          <label for="f-label">Name</label>
+          <input id="f-label" type="text" maxlength="40" autocomplete="off" autocapitalize="words" spellcheck="false">
+        </div>
+        <div class="field">
+          <label for="f-url">Link (http or https)</label>
+          <input id="f-url" type="text" inputmode="url" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="https://example.com/">
+        </div>
+        <p id="form-error" class="error" role="alert" hidden></p>
+        <div class="row">
+          <button type="submit" id="f-submit" class="btn primary">Add service</button>
+          <button type="button" id="f-cancel" class="btn" hidden>Cancel edit</button>
+        </div>
+      </form>
+    </section>
+
+    <section aria-labelledby="mode-heading">
+      <h3 id="mode-heading">Launch method</h3>
+      <fieldset class="modes">
+        <legend class="sr-only">Launch method</legend>
+        <label class="mode">
+          <input type="radio" name="mode" value="direct" checked>
+          <span><strong>Direct links</strong> (recommended)<br><span class="muted">Opens each site's own address.</span></span>
+        </label>
+        <label class="mode">
+          <input type="radio" name="mode" value="youtube-redirect">
+          <span><strong>Experimental: via YouTube redirect</strong><br><span class="muted">Community-reported way to get Tesla's fullscreen view. Unverified on current Tesla software. You may see a YouTube "Go to site" prompt, and YouTube is told which link you are opening. Links to YouTube itself stay direct.</span></span>
+        </label>
+      </fieldset>
+    </section>
+
+    <section aria-labelledby="reset-heading">
+      <h3 id="reset-heading">Reset</h3>
+      <button type="button" id="reset-btn" class="btn danger">Reset to defaults</button>
+    </section>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
