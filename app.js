@@ -8,6 +8,9 @@
     { id: 'netflix', label: 'Netflix', url: 'https://www.netflix.com/' }
   ];
 
+  // Intrinsic aspect ratios of logos/*.svg, so layout doesn't depend on image load timing.
+  var LOGO_SIZES = { 'youtube-tv': [240, 44], 'youtube': [240, 170], 'netflix': [136, 240] };
+
   var STORAGE_KEY = 'parked-launcher:v1';
   var MAX_SERVICES = 24;
   var MAX_LABEL = 40;
@@ -192,7 +195,17 @@
       var badge = document.createElement('span');
       badge.className = 'badge';
       badge.setAttribute('aria-hidden', 'true');
-      badge.textContent = initialsOf(s.label);
+      if (brand) {
+        var img = document.createElement('img');
+        img.src = 'logos/' + brand + '.svg';
+        img.alt = '';
+        img.width = LOGO_SIZES[brand][0];
+        img.height = LOGO_SIZES[brand][1];
+        badge.className = 'badge logo' + (brand === 'youtube-tv' ? ' wide' : '');
+        badge.appendChild(img);
+      } else {
+        badge.textContent = initialsOf(s.label);
+      }
 
       var name = document.createElement('span');
       name.className = 'name';

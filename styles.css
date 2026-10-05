@@ -171,6 +171,9 @@ main { flex: 1; display: flex; align-items: center; outline: none; }
   color: #0b0d12; text-shadow: 0 1px 0 rgba(255,255,255,0.35);
   box-shadow: 0 8px 24px hsl(var(--hue) 90% 40% / 0.5), inset 0 1px 0 rgba(255,255,255,0.5);
 }
+.badge.logo { width: max-content; display: flex; align-items: center; justify-content: center; background: #fff; box-shadow: 0 8px 24px hsl(var(--hue) 90% 40% / 0.45), inset 0 -2px 0 rgba(0,0,0,0.08); }
+.badge img { display: block; height: 38px; width: auto; flex: none; }
+.badge.wide img { height: 24px; }
 .name {
   font-size: clamp(1.8rem, 3.4vw, 2.6rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.01em;
   overflow-wrap: anywhere; text-shadow: 0 2px 12px rgba(0,0,0,0.4);
@@ -235,6 +238,8 @@ input[type="text"][aria-invalid="true"] { border-color: var(--danger); }
   .app { gap: 12px; }
   .tile { min-height: 150px; padding-top: calc(var(--pad) + 58px); }
   .badge { min-width: 48px; height: 48px; font-size: 1.4rem; border-radius: 14px; }
+  .badge img { height: 26px; }
+  .badge.wide img { height: 17px; }
   .tile::after { width: 40px; height: 40px; font-size: 1.6rem; }
 }
 
@@ -242,9 +247,7 @@ input[type="text"][aria-invalid="true"] { border-color: var(--danger); }
 @media (max-width: 600px) {
   body { font-size: 1.05rem; }
   .tiles { grid-template-columns: 1fr; }
-  .tile { min-height: 120px; justify-content: center; padding: var(--pad) 76px var(--pad) 108px; }
-  .badge { top: 50%; left: 20px; transform: translateY(-50%); }
-  .tile::after { top: 50%; transform: translateY(-50%); }
+  .tile { min-height: 170px; }
   main { align-items: flex-start; }
 }
 
